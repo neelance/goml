@@ -2250,6 +2250,10 @@ func (p *parser) parseStmt() (s ast.Stmt) {
 	case token.RBRACE:
 		// a semicolon may be omitted before a closing "}"
 		s = &ast.EmptyStmt{Semicolon: p.pos, Implicit: true}
+	case token.LSS:
+		s = p.parseTag()
+	case token.REM:
+		s = p.parseTextNode()
 	default:
 		// no statement found
 		pos := p.pos
